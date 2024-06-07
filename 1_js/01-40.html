@@ -1,0 +1,217 @@
+
+<html>
+<div>this is test page</div>
+
+<script>
+    console.log("--1-4---");
+    var msg ="hello";
+    msg = 100;
+    console.log(msg);
+
+    console.log("--1-5---");
+    console.log(typeof("Taro"));
+    console.log(typeof(50));
+    console.log(typeof([50]));
+    console.log(typeof(null));
+
+    console.log("--1-5---");
+    // object型→参照
+    // primitive型→値
+
+    var array1= ["banana","apple","orange"];
+    var array2 = array1;
+    array1[2] = "peach";
+    for(var data of array2){
+        console.log(data);
+    }
+
+    console.log("--1-8---");
+    var num1 = NaN;
+    var num2 = NaN;
+    console.log(0 / 0);
+    console.log(num1 == num1);
+    console.log(num1 == num2);
+
+    console.log("--1-9---");
+    // console.log(1/0);
+    // console.log(infinity + 1);
+    // console.log(infinity / infinity);
+    // console.log(infinity - infinity);
+    console.log("--1-10---");
+
+    console.log("--1-11---");
+    function hello(){
+        console.log("hello!");
+    }
+    console.log(hello());
+</script>
+
+<script>
+
+    console.log("--1-14 use strict---")
+
+    function f(a,a){
+        // "use strict";
+    }
+
+    function g(){
+        "use strict";
+        b=1;
+        console.log(b);
+    }
+
+    // f(1,1)
+    // g()
+
+    //  with文は使わない
+    console.log("--1-15--")
+    var url1 = "from-date=2018/07/31&to-date=2018/07/31"
+    var url2 = encodeURIComponent(url1);
+    var url3 = encodeURI(url1);
+    console.log(url2);
+    console.log(url3);
+
+    var moji1 = "/#&@:;,+$?="
+    var moji2 = encodeURIComponent(moji1);
+    var moji3 = encodeURI(moji1);
+    console.log(moji2);
+    console.log(moji3);
+
+
+    console.log("--1-16--")
+
+
+
+    console.log("--1-17--")
+    console.log("JSON文字列からJSオブジェクトへの変換")
+    var jsonCat="{\"name\":\"Tama\",\"type\":\"ScottishFold\"}";
+    console.log(jsonCat);
+    console.log(JSON.parse(jsonCat));
+    
+    
+    console.log("JSオブジェクトからJSON文字列への変換")
+    var cat2 ={name:"リリ",type:"ミックス"};
+    console.log(cat2)
+    console.log(JSON.stringify(cat2));
+
+    console.log("--1-18--")
+    function returnArrayInfo(array){
+        info = "要素数：" + array.length;
+        info += "先頭の要素：" + array[0];
+        info += "末尾の要素：" + array[array.length - 1];
+        return info;
+    }
+    console.log(returnArrayInfo([1,2,3,4,5]));
+
+    console.log("--1-20--")
+    var array2 = ["banana","apple","orange"];
+    array2[3] = 100;
+    // 4と出力される
+    console.log(array2.length);
+
+
+    
+    console.log("--1-21--")
+    var array3 = [];
+    array3[3] = "banana";
+    // undefined 4と出力される
+    console.log(array3[0]);
+    console.log(array3.length);
+
+    console.log("--1-25--")
+    var now = new Date();
+    console.log(now.getMonth() + "月");
+    console.log(now.getDate() +"日");
+    console.log(now.getDay() +"曜日");
+    console.log("--1-27--")
+    // 2
+    console.log("floor(2.5):" + Math.floor(2.5));
+    // 3
+    console.log("ceil(2.5):" + Math.ceil(2.5));
+    // 3
+    console.log("round(2.5):" + Math.round(2.5));
+
+    console.log("--1-28--")
+    var num1 = 1;
+    var num2 = 2;
+    var num3 = "3";
+    // 33
+    //num1 num2 がint num3がstringなので文字列結合される
+    console.log(num1 + num2 + num3);
+
+    console.log("--1-29--")
+    var num11 = "100";
+    var num12 = "50";
+    // -の演算子では　文字列が含まれる場合数値に変換される
+    console.log(num11 - num12);
+    // +の場合は変換されない。
+    console.log(num11 + num12);
+
+    console.log("--1-30--")
+    var a = 100;
+    // 加算後の値
+    console.log("++a:"+ ++a);
+    // 加算前の値
+    console.log("a++:"+ a++);
+
+    console.log("--1-32　Delete演算子--")
+    var emp ={no:1,name:"yamada"};
+    var empNo = emp.no;
+    // 要素は削除できる
+    delete emp.no;
+    // 変数は削除できない
+    delete empNo;
+
+    console.log(emp.no)
+    console.log(empNo)
+
+    console.log("--1-33　Delete演算子--")
+    var array4 = ["banana","apple","orange"];
+    delete array4[0];
+    console.log(array4[0]);
+    console.log(array4.length); 
+    console.log(array4);
+
+    console.log("--1-34 instanceof演算子--")
+    var val1 = "hello";
+    var val2 = new String("hello");
+    console.log(val1 instanceof Object)
+    console.log(val2 instanceof Object)
+
+    console.log("--1-34 instanceof演算子--")
+    var cat ={name:"ラム",type:"エキゾチックショートヘア"};
+    console.log("name" in cat);
+    console.log("bark" in cat);
+    cat.bark = function(){
+        console.log("myao");
+    }
+
+    if("bark" in cat){
+        console.log("barkは存在します")
+    }
+    console.log("toString" in cat);
+    console.log(cat);
+    console.log("--1-37 void演算子--")
+    console.log("--1-38 スイッチ演算子--")
+    var month=8;
+    switch(month){
+        case 3:
+        case 4:
+            console.log("spring");
+        case 5:
+        case 8:
+            console.log("summer");
+        case 9:
+            console.log("autumn");
+    }
+    console.log("--1-38  for/in--")
+    var cat12 = ["ラム","エキゾチックショートヘア" ,1.4];
+
+    for(var data in cat12){
+        console.log(data);
+    }
+
+</script>
+
+
+</html>
