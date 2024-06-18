@@ -1,0 +1,193 @@
+
+<html>
+<h1>３．グラフィックデザイン</h1>
+<h2>3-2aa</h2>
+<canvas id="canvas0302" height="320" width="480"></canvas>
+
+<script>
+var canvas0302 = document.getElementById("canvas0302");
+var ctx = canvas0302.getContext("2d");
+// 3-2
+{
+    ctx.beginPath();
+    ctx.moveTo(50, 100);
+    ctx.lineTo(100, 100);
+    ctx.moveTo(100,50);
+    ctx.lineTo(50,50);
+    ctx.stroke();
+}
+</script>
+<h2>homeアイコン作成</h2>
+<canvas id="home" width="300" height="300"></canvas>
+<script>
+// 家のアイコンを作る
+{
+    var canvasHome = document.getElementById("home");
+    var ctxHome = canvasHome.getContext("2d");
+    ctxHome.lineWidth = 10;
+    // 壁
+    ctxHome.strokeRect(75, 140, 150, 110);
+    // ドア
+    ctxHome.fillRect(130, 190, 40, 60);
+
+    //屋根
+    ctxHome.beginPath();
+    ctxHome.moveTo(50, 140);
+    ctxHome.lineTo(150, 60);
+    ctxHome.lineTo(250, 140);
+    ctxHome.closePath();
+    ctxHome.stroke();
+}
+</script>
+<script>
+// 0302
+{
+
+}
+</script>
+<h2>3-3</h2>
+
+<canvas id="canvas0303" height="320" width="480"></canvas>
+<script>
+    var canvas303 = document.getElementById("canvas0303");
+    var ctx303 = canvas303.getContext("2d");
+
+    console.log("Math.PI"+ Math.PI)
+    //https://developer.mozilla.org/ja/docs/Web/API/CanvasRenderingContext2D/arc
+    ctx303.arc(100,100,50,Math.PI *0, Math.PI*1)
+    ctx303.fill()
+</script>
+
+<h2>3-4</h2>
+<canvas id="canvas0304" height="320" width="480"></canvas>
+<script>
+    // 描画状態の保存および 復元
+
+    var canvas0304 =document.getElementById("canvas0304");
+    var ctx0304 = canvas0304.getContext("2d");
+
+    ctx0304.beginPath();
+    ctx0304.fillStyle = "green";
+
+    //  描画状態を保存する
+    ctx0304.save();
+
+    ctx0304.fillStyle="red";
+    ctx0304.rect(150,50,100,50);
+    // 描画状態を保存（上書き）
+    ctx0304.save();
+
+    ctx0304.fillStyle="blue";
+    // 直近の保存状態を復元する。
+    ctx0304.restore();
+    
+    // https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/fill
+    ctx0304.fill();
+</script>
+
+<h2>3-5</h2>
+<canvas id="canvas0305" height="320" width="480"></canvas>
+<script>
+    var canvas0305 = document.getElementById("canvas0305");
+    var ctx0305 = canvas0305.getContext("2d");
+
+    var x = 0;
+
+    // requestAnimationFrame(function(){
+    setInterval(function(){
+
+        // 画面をクリア
+        //https://developer.mozilla.org/ja/docs/Web/API/CanvasRenderingContext2D/clearRect
+        ctx0305.clearRect(0,0,canvas0305.width,canvas0305.height);
+        
+        // 矩形を描画
+        // rectに変更する消されない　何故？？？　stokeの違いは？？
+        ctx0305.strokeRect(x,0,50,50);
+        x += 10;
+        if(x>480){
+            x = 0;
+        }
+    },100);
+</script>
+<h2>3-7</h2>
+<canvas id="canvas0307" height="320" width="480"></canvas>
+<script>
+    var canvas0307 = document.getElementById("canvas0307");
+    var ctx0307 = canvas0307.getContext("2d");
+    
+    ctx0307.fillStyle = "red";
+    ctx0307.fillRect(10,50,100,50);
+    ctx0307.fillStyle = "yellow";
+    ctx0307.arc(70,40,30,0,Math.PI *2);
+    ctx0307.fill();
+
+</script>
+<h2>3-12 svg指定方法</h2>
+<h3>img要素に指定</h3>
+<img src="0312_compass.svg" height="250" width="250">
+<h3>CSSプロパティで読み取る</h3>
+<div id="svg"></div>
+<h3>svg要素を使用</h3>
+<svg height="250" width="250">
+    <image xlink:href="0312_compass.svg" height="250" width="250"></image>  
+
+<style>
+ #svg{
+        background-image:url("0312_compass.svg");
+        height:250px;
+        width:250px;
+    }
+ </style>
+<h2>3-14 </h2>
+<di>requestAnimationFrameの使用例</di>
+<canvas id="canvas0314" height="320" width="480" style="background-color:black;"></canvas>
+<script>
+    <!-- https://developer.mozilla.org/ja/docs/Web/API/Window/requestAnimationFrame -->
+
+    const element = document.getElementById("canvas0314");
+    let start, previousTimeStamp;
+    let done = false;
+    
+    function step(timestamp) {
+      if (start === undefined) {
+        start = timestamp;
+      }
+      const elapsed = timestamp - start;
+    
+      if (previousTimeStamp !== timestamp) {
+        // ここで Math.min() を使用して、要素がちょうど 200px で止まるようにします。
+        const count = Math.min(0.1 * elapsed, 200);
+        element.style.transform = `translateX(${count}px)`;
+        if (count === 200) done = true;
+      }
+    
+      if (elapsed < 2000) {
+        // Stop the animation after 2 seconds
+        previousTimeStamp = timestamp;
+        if (!done) {
+          window.requestAnimationFrame(step);
+        }
+      }
+    }
+    
+    window.requestAnimationFrame(step);
+</script>
+<h2>3-15</h2>
+<div style="position: absolute; height: 30px; width:30px; background-color: red" id="box0315"></div>
+<script>
+    var start0305 = 0;
+    var divEle = document.getElementById("box0315");
+
+    function step0315(timestamp){
+       
+        var progress = timestamp - start0305;
+        <!-- console.log(timestamp) -->
+        divEle.style.left = (progress / 10) +"px";
+        if(progress < 10000){
+            window.requestAnimationFrame(step0315);
+        }
+    }
+    window.requestAnimationFrame(step0315);
+
+</script>
+</html>
