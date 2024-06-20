@@ -1,0 +1,199 @@
+
+<html>
+<h1> Storage</h1>
+
+<h2>5-2</h2>
+<div>確認方法</div>
+<div>ブラウザで確認する方法→Application->Storage->LocalStorage</div>
+<div>同じオリジンまでは共有する</div>
+<div>違うタブで開く、いったん閉じて再度開き直しても残る</div>
+
+<div></div>
+<script>
+console.log("------------5-2 localstorage-------------");
+localStorage.setItem("name","evilcat");
+console.log(localStorage.getItem("name"));
+
+function deletelocalStorage(){
+    localStorage.removeItem("name");
+    console.log(localStorage.getItem("name"));
+}
+
+</script>
+<h2>5-4StorageEvent</h2>
+<di>localstorageの値を変更した時に通知する</di>
+
+<script>
+    //  localstorageの変更を検知する
+    window.addEventListener("storage",function (event){
+        window.alert(event.oldValue)
+        window.alert(event.newValue)
+    })
+
+</script>
+
+<h2>5-5</h2>
+<div>web Storageの参照方法</div>
+
+<script>
+    localStorage.setItem("type","americanShortHair");
+
+    localStorage.type ="exoticShortHair"
+    // 2番目のlocalstorageのkeyの名前を取得
+    var key0505 = localStorage.key(1);
+
+    // localstorageのキー名"type"の値を取得
+    var value0505 = localStorage.type;
+
+    console.log(key0505 + "." + value0505)
+</script>
+
+<h2>5-6 </h2>
+<div>Web Storageの格納できる種類</div>
+<script>
+    sessionStorage.div = document.createElement("div");
+    console.log(sessionStorage.div)
+</script>
+<h2>5-9 Indexd Database</h2>
+
+<script>
+    var request0509 = indexedDB.open("zoo",1);
+
+    // dbの処理が成功した場合に発火
+    request0509.onerror = function (event){
+        console.log("not connection DB")
+    }
+
+    // データベースを新規作成した際、または、既存のバージョンよりも新しいバージョンのデータベースに接続した際に呼び出される
+    request0509.onupgradeneeded = function (event){
+        var db = event.target.result;
+        var store = db.createObjectStore("panda",{keyPath:"id"});
+    }
+
+    // dbの処理が成功した場合に発火
+    request0509.onsuccess = function(event){
+        var db = event.target.result
+        console.log("onSuccess")
+    }
+
+</script>
+<h2>5-12 File API</h2>
+<input type="file" id="files" multiple>
+<script>
+    // file API
+    // https://developer.mozilla.org/ja/docs/Web/API/File
+    var showFileNames = function(){
+        var inputFiles = document.querySelector("#files");
+        var files = inputFiles.files;
+        for(var i=0;i<files.length;i++){
+            var file = files[i];
+            console.log(file.name)
+        }
+        console.log("ファイル数" + files.length)
+    }
+    var selector = document.querySelector('#files');
+    selector.addEventListener('change',showFileNames);
+
+</script>
+<h2>5-14</h2>
+<div> FileReader</div>
+<input type="file" id="file0514">
+<script>
+    var showImage = function(){
+        var inputFiles0514 = document.querySelector("#file0514");
+        var fileList = inputFIles.files;
+
+        var reader0514 = new FileReader();
+
+        reader.onload = function(){
+            // FileReader result
+            // https://developer.mozilla.org/ja/docs/Web/API/FileReader/result
+            var dataURI = this.result
+
+            document.body.innerHTML +='<a href="' + dataURI + '"target="_blank'
+        }
+    }
+    var inputFiles0514
+</script>
+<h2>5-15 File APIデータ読込</h2>
+
+<input type="file" id="files0515">
+<script>
+    var readFile = function(){
+        var file = inputFiles.files[0];
+        var fileReader = new FileReader();
+
+        fileReader.addEventListener("load",function(){
+            console.log(fileReader.readyState);
+            console.log(fileReader.result);
+        })
+
+        fileReader.addEventListener("error",function(){
+            console.log(fileReader.readyState);
+            console.log(fileReader.error);
+        })
+
+        fileReader.readAsText(file);
+    }
+
+    var inputFiles = document.querySelector("#files0515");
+    inputFiles.addEventListener("change",readFile);
+</script>
+
+<h2>5-17 ArrayBuffer</h2>
+<script>
+    var buffer = new ArrayBuffer(32);
+
+    console.log(buffer.byteLength)
+    //todo 実際にバイナリーファイルを読み取る。
+
+</script>
+
+<h2>5-19 Blob(Binary Large OBject)オブジェクト </h2>
+<iframe id="output0519"></iframe>
+<script>
+    var fileResource =["<p><strong>important</strong></p>"]
+
+    var blobData = new Blob(fileResource, {type:"text/html"});
+    var url = URL.createObjectURL(blobData);
+    document.querySelector("#output0519").setAttribute("src",url);
+    console.log("---------5-19------------")
+    console.log(blobData);
+    console.log(blobData.size);
+    console.log(blobData.type);
+</script>
+
+
+<h2>5-20 Blob URL</h2>
+<input type="file" id="input0520">
+<img src="" id ="output0520">
+<div>画像読み取り後、Chromeにて検証→Sourceを選択して実物を確認。</div>
+<div>確認した限り05_storageフォルダと同じ階層があるっぽい</div>
+<div>Live Server上でも確認した見当たらず</div>
+<div>blobが発行したURLをブラウザで開いても表示されず</div>
+<div>F5で更新したら　消える</div>
+<script>
+    var showImage = function(){
+        var files0520 = input0520.files;
+        var file = files0520[0]
+        var blobURL = URL.createObjectURL(file);
+        console.log(blobURL);
+        var output0520 = document.querySelector("#output0520");
+        output0520.src = blobURL;
+    }
+    var input0520 = document.querySelector("#input0520");
+    input0520.addEventListener("change",showImage);
+</script>
+<h2>5-22 File Apiと WebApi</h2>
+<input type="file" id="uploaded">
+<img src="no-image.png" alt ="icon" id="icon">
+<script>
+    window.addEventListener("load",function(){
+        var icon = Read
+    })
+
+    document.querySelector("#uploader").addEventListener("change",function(){
+        var file = document.querySelector("#uploader").files[0];
+    })
+</script>
+</html>
