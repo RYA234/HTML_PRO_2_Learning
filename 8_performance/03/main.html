@@ -1,0 +1,45 @@
+<html>
+    <h1 class="title">aaa</h1>
+    WorkerからDOMにアクセスできないのでエラーになる。
+    <script>
+       
+        window.onload = function(){
+            var worker = new Worker("worker2.js");
+            worker.onmessage = function(){
+                console.log("変更完了")
+            }
+            worker.postMessage("FLM");
+        }
+    </script>
+
+    <h1>8-7  Highsolution Time API</h1>
+    <script>
+        console.log("8-7  Highsolution Time API")
+        const beforeP = performance.now();
+        const beforeD = Date.now();
+        for(let i=0;i<100;i++){
+            console.log("loop count" + i);
+        }
+        const afterP = performance.now();
+        const afterD = Date.now();
+        
+        console.log("経過時間" + (afterP -beforeP) + "ms");
+        console.log("経過時間" + (afterD -beforeD) + "ms");
+    </script>
+    <h1>8-8 performance.now()</h1>
+    <script>
+        console.log("8-8performance.now")
+        console.log(performance.now() +"μs")
+    </script>
+    <h1>8-14PageVisibilityイベント</h1>
+    <div>タブを変えた時に実行されるイベント</div>
+    <div>制度が高いため、正確に時間を計測するときに使える</div>
+    <script>
+        document.onvisibilitychange = function(){
+            console.log("タブを切り替えました。")
+            console.log(document.visibilityState)
+            // パフォーマンスを完了する
+        }
+    </script>
+
+</html>
